@@ -1,5 +1,4 @@
 ---
- - name: deploy key fabianthoma
+ - name: deploy keys  
    authorized_key: key={{ item }} user=root 
-   with_items: 
-       - https://github.com/fabianthoma.keys
+   with_items: "{{ ssh_keys }}"
