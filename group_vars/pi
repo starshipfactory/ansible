@@ -2,3 +2,6 @@ ssh_keys:
   - https://github.com/fabianthoma.keys
   - https://github.com/lordfolken.keys
   - https://github.com/thehactar.keys
+octoprint_home: /home/pi
+octoprint_git: https://github.com/foosel/OctoPrint.git
+octoprint_version: 1.2.17

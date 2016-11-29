@@ -1,0 +1,20 @@
+--- 
+ - name: ensure that {{ octoprint_home }} exists
+   file: path={{ octoprint_home }} state=directory owner=pi group=pi
+
+ - name: install octoprint
+   git: repo={{ octoprint_git }} dest={{ octoprint_home }}/OctoPrint version=1.2.17 
+   register: octoprint
+ 
+ - name: execute setup.py 
+   command: python setup.py install  
+   args: 
+     chdir: "{{ octoprint_home }}/OctoPrint"
+   when: octoprint.changed
+
+ - name: Startup Octoprint 
+   service: name=octoprint state=restarted
+   when: octprint.changed
+
+ - name: Startup Octoprint ensure 
+   service: name=octoprint state=started enabled=yes
