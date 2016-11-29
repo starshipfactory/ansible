@@ -1,0 +1,38 @@
+---
+ - name: download cura engine
+   git: repo=https://github.com/Ultimaker/CuraEngine.git dest=/opt/cura-engine version=15.06
+
+ - name: install libtool and build-essentials
+   apt: name={{ item }}    
+   with_items: 
+     - libgtest-dev
+     - libtool
+     - build-essential
+     - autoconf
+
+ - name: download protobuf
+   git: repo=https://github.com/google/protobuf/ dest=/opt/protobuf
+   register: protobuf
+   
+ - name: compile protobuf
+   shell: ./autogen.sh  && ./configure.sh 
+   args: 
+     chdir: /opt/protobuf/   
+  # when: protobuf.changed
+
+ - name: make protobuf
+   make: chdir=/opt/protobuf  
+  # when: protobuf.changed
+
+ - name: install protobuf
+   make: chdir=/opt/protobuf target=install
+   when: protobuf.changed
+
+ - name: install libarcus
+   git: repo=https://github.com/Ultimaker/libArcus.git dest=/opt/libArcus version=15.06
+   register: libarcus
+  
+ - name: install python setup tools 
+   apt: name=python3-setuptools
+
+
