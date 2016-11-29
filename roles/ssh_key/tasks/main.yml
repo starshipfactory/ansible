@@ -1,0 +1,5 @@
+---
+ - name: deploy key fabianthoma
+   authorized_key: key={{ item }} user=root 
+   with_items: 
+       - https://github.com/fabianthoma.keys
