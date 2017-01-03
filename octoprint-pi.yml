@@ -1,0 +1,9 @@
+---
+- hosts: all
+  roles: 
+    - ssh_key 
+
+- hosts: octoprint-pi
+    - { role: pi_install_octoprint, tags: ['pi_install_octoprint'] } 
+    - pi_gcode_scripts
+ 
