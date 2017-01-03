@@ -3,4 +3,3 @@
   roles: 
     - { role: pi_install_octoprint, tags: ['pi_install_octoprint'] } 
     - pi_gcode_scripts
- 
