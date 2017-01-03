@@ -1,3 +1,7 @@
+[all:children]
+infopi
+octoprint-pi
+
 [infopi]
 infopi.local
 
