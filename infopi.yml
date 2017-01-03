@@ -1,0 +1,4 @@
+---
+ - hosts: infopi
+   roles:
+     - { role: "info_pi", tags: 'infopi' }

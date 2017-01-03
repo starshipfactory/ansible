@@ -1,0 +1,21 @@
+---
+  - name: Set Unattended upgrades
+    debconf: name=unattended-upgrades question='unattended-upgrades/enable_auto_updates' vtype=boolean value=true
+
+  # Unattended Upgrades
+  - name: install unattended upgrades
+    apt: pkg=unattended-upgrades
+
+  - name: Configure Unattended upgrades
+    copy: dest=/etc/apt/apt.conf.d/50unattended-upgrades src=files/50unattended-upgrades 
+
+  - name: Daily Cronjob update packagelist
+    cron: cron_file=unattended-upgrades-update hour=12 minute=0 name=unattended-upgrades-daily-cron job="/usr/bin/apt-get update > /dev/null" state=present user=root  
+
+  - name: Daily Cronjob unattended updates
+    cron: cron_file=unattended-upgrades hour=12 minute=22 name=unattended-upgrades-daily-cron job="/usr/bin/unattended-upgrades" state=present user=root  
+
+  - name: Daily Cronjob unattended updates
+    cron: cron_file=unattended-upgrades hour=12 minute=22 name=unattended-upgrades-daily-cron job="/usr/bin/unattended-upgrades -d" state=absent user=root  
+
+
