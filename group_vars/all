@@ -1,4 +1,5 @@
 ssh_keys:
-  - https://github.com/fabianthoma.keys
-  - https://github.com/lordfolken.keys
-  - https://github.com/thehactar.keys
+ - https://github.com/fabianthoma.keys
+ - https://github.com/lordfolken.keys
+ - https://github.com/thehactar.keys
+ - https://github.com/caoimhechaos.keys
