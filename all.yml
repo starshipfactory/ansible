@@ -1,4 +1,6 @@
 ---
 - hosts: all
   roles:
-    - ssh_key
+    - { role: "ssh_key", tags: 'ssh_key' }
+    - { role: "unattended_upgrades", tags: 'unattended_upgrades' }
+
