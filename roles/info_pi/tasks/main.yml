@@ -1,0 +1,16 @@
+---
+ - name: create i3-wm config dir
+   file: state=directory path=~pi/.i3/ owner=pi
+
+ - name: copy i3-wm config 
+   copy: src=config dest=~pi/.i3/config owner=pi 
+
+ - name: install packages for kiosk display
+   apt: name={{ item }} 
+   with_items: 
+     - xorg
+     - i3-wm
+     - i3status
+     - midori
+     - lightdm
+
