@@ -18,7 +18,7 @@ To use the playbook with the role only:
 
 Role Description:
 -----------------
-# ssh_key: Deploy ssh_keys of sf members to root account of devices. keys are defined in the ssh_keys variable in group_vars/all.
+* ssh_key: Deploy ssh_keys of sf members to root account of devices. keys are defined in the ssh_keys variable in group_vars/all.
 
-# info_pi: install info screen for advert screen to the outside
-# unattended_upgrades: configure unattended upgrades to install security upgrades automatically.  
+* info_pi: install info screen for advert screen to the outside
+* unattended_upgrades: configure unattended upgrades to install security upgrades automatically.  
