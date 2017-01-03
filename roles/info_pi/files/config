@@ -1,2 +1,4 @@
+exec xset s noblank
+exec xset s off
 exec --no-startup-id midori -i 3599 -a https://www.starship-factory.ch/ & 
 exec --no-startup-id midori -i 3601 -a https://www.starship-factory.ch/events &
