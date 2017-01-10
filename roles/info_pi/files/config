@@ -1,3 +1,4 @@
+exec xset -dpms
 exec xset s noblank
 exec xset s off
 exec --no-startup-id midori -i 3599 -a https://blog.starship-factory.ch/ & 
