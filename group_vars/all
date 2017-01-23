@@ -6,3 +6,6 @@ ssh_keys:
  - https://github.com/caoimhechaos.keys
  - https://github.com/srueegger.keys
  - https://github.com/hexagon6.keys
+
+# Role timezone
+timezone: "Europe/Zurich"

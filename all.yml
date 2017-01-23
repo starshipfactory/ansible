@@ -1,6 +1,7 @@
 ---
 - hosts: all
   roles:
+    - { role: "timezone", tags: 'timezone' }
     - { role: "ssh_key", tags: 'ssh_key' }
     - { role: "unattended_upgrades", tags: 'unattended_upgrades' }
 
