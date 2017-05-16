@@ -1,4 +1,5 @@
 [all:children]
+gateway
 infopi
 octoprint-pi
 
@@ -9,3 +10,6 @@ infopi.local
 lerato
 nina
 manfred
+
+[gateway]
+100.64.0.1 
