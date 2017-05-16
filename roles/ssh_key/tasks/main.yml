@@ -1,4 +1,11 @@
 ---
+ - name: ensure ca chain is installed
+   apt: 
+     name: "{{ item }}"
+   with_items:
+     - ca-certificates
+     - openssl
+
  - name: deploy keys  
    authorized_key: key={{ item }} user=root 
    with_items: "{{ ssh_keys }}"
