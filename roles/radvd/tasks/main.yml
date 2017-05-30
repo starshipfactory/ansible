@@ -8,8 +8,11 @@
 
  - name: ensure ipv6 forwarding is enabled for new interfaces
    sysctl:
-     name: net.ipv6.conf.default.forwarding
+     name: "net.ipv6.conf.{{item}}.forwarding"
      value: 1
+   with_items:
+     - all
+     - default
 
  - name: ensure ipv6 forwarding is enabled for existing interfaces
    lineinfile:
@@ -19,12 +22,12 @@
      group: root
      mode: 0444
      line: "net.ipv6.conf.{{item|replace('.','/')}}.forwarding=1"
-   with_items: "{{ ansible_interfaces|reject('equalto', 'lo')|reject('equalto', ansible_default_ipv6.interface)|sort }} "
+   with_items: "{{ ansible_interfaces|reject('equalto', 'lo')|sort }} "
    register: sysctl_reload
 
  - name: reload ipv6 forwarding sysctls
    command: /sbin/sysctl -w "net.ipv6.conf.{{item|replace('.','/')}}.forwarding=1"
-   with_items: "{{ ansible_interfaces|reject('equalto', 'lo')|reject('equalto', ansible_default_ipv6.interface)|sort }} "
+   with_items: "{{ ansible_interfaces|reject('equalto', 'lo')|sort }} "
    when: sysctl_reload.changed
 
  - name: install radvd conf
