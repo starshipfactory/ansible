@@ -1,0 +1,15 @@
+---
+ - name: squid_service
+   service:
+     name: squid3
+     state: restarted
+
+ - name: inetd_service
+   service:
+     name: openbsd-inetd
+     state: restarted
+
+ - name: unbound_service
+   service:
+     name: unbound
+     state: restarted

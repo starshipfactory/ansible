@@ -1,0 +1,44 @@
+---
+- name: Install the required proxy packages.
+  apt:
+    package: "{{ item }}"
+    state: latest
+  when: ansible_pkg_mgr == 'apt'
+  with_items:
+   - openbsd-inetd
+   - approx
+  notify: inetd_service
+
+- name: Configure approx.
+  copy:
+    src: approx.conf
+    dest: /etc/approx/approx.conf
+    owner: root
+    group: approx
+    mode: 0440
+
+- name: Configure inetd for approx on IP.
+  lineinfile:
+    dest: /etc/inetd.conf
+    regexp: "^http[\t ]+stream[\t ]+tcp6"
+    line: "http stream tcp6 nowait.1024 approx /usr/sbin/approx /usr/sbin/approx"
+
+- name: Configure inetd for approx on legacy IP.
+  lineinfile:
+    dest: /etc/inetd.conf
+    regexp: "^http[\t ]+stream[\t ]+tcp[\t ]"
+    line: "http stream tcp nowait.1024 approx /usr/sbin/approx /usr/sbin/approx"
+
+- name: Ensure approx has a directory to write to.
+  file:
+    path: /var/cache/approx
+    state: directory
+    owner: approx
+    group: approx
+    recurse: yes
+
+- name: Make sure inetd is running.
+  service:
+    name: openbsd-inetd
+    state: started
+    enabled: yes

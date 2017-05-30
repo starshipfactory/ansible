@@ -1,0 +1,33 @@
+---
+- name: Install the required proxy packages.
+  apt:
+    package: "{{ item }}"
+    state: latest
+  when: ansible_pkg_mgr == 'apt'
+  with_items:
+   - squid3
+   - squidclient
+  notify: squid_service
+
+- name: Configure Squid.
+  template:
+    src: squid.conf.j2
+    dest: /etc/squid3/squid.conf
+    owner: root
+    group: proxy
+    mode: 0440
+  notify: squid_service
+
+- name: Ensure Squid has a directory to write to.
+  file:
+    path: /var/cache/squid
+    state: directory
+    owner: proxy
+    group: proxy
+    recurse: yes
+
+- name: Make sure Squid is running.
+  service:
+    name: squid3
+    state: started
+    enabled: yes

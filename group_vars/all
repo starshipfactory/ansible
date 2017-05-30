@@ -9,3 +9,13 @@ ssh_keys:
 
 # Role timezone
 timezone: "Europe/Zurich"
+
+# DNS domain name
+dnsdomainname: "starship-factory.ch"
+
+# IP whitelists
+ipv4_whitelist:
+ - 100.64.0.0/23
+
+ipv6_whitelist:
+ - 2a02:200:2e00:5480::/60

@@ -1,0 +1,9 @@
+server:
+    interface: 0.0.0.0
+    interface: ::0
+{% for addr in ipv4_whitelist %}
+    access-control: {{ addr }} allow
+{% endfor %}
+{% for addr in ipv6_whitelist %}
+    access-control: {{ addr }} allow
+{% endfor %}

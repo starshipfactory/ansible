@@ -12,10 +12,12 @@ filer.lab.starship-factory.ch
 froehlich.lab.starship-factory.ch
 minecraft.lab.starship-factory.ch
 monitoring.lab.starship-factory.ch
-proxy.lab.starship-factory.ch
 
 [infopi]
 infopi.local
+
+[proxy-hosts]
+proxy.lab.starship-factory.ch
 
 [octoprint-pi]
 lerato.lab.starship-factory.ch

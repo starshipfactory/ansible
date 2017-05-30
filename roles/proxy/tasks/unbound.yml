@@ -1,0 +1,26 @@
+---
+- name: Install the unbound recursor.
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  when: ansible_pkg_mgr == 'apt'
+  with_items:
+   - unbound
+   - unbound-anchor
+   - unbound-host
+  notify: unbound_service
+
+- name: Create unbound configuration.
+  template:
+    dest: /etc/unbound/unbound.conf.d/ansible.conf
+    src: unbound.conf.j2
+    owner: root
+    group: root
+    mode: 0644
+  notify: unbound_service
+
+- name: Make sure unbound is running.
+  service:
+    name: unbound
+    state: started
+    enabled: yes

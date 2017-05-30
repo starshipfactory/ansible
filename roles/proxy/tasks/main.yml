@@ -1,0 +1,4 @@
+---
+ - include: approx.yml
+ - include: squid.yml
+ - include: unbound.yml

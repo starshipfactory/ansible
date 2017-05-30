@@ -1,0 +1,4 @@
+---
+ - hosts: proxy-hosts
+   roles:
+     - { role: "proxy", tags: 'proxy' }
