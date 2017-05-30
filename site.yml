@@ -3,3 +3,4 @@
 - include: all.yml
 - include: infopi.yml
 - include: octoprint-pi.yml
+- include: gateway.yml

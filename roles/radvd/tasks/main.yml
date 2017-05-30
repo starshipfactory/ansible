@@ -4,31 +4,36 @@
      name: "{{ item }}"
    with_items:
      - radvd
-     - wide-dhcpv6-client 
- 
+     - wide-dhcpv6-client
+
  - name: ensure sysctl for radvd is set
    sysctl:
      name: net.ipv6.conf.default.forwarding
      value: 1
 
- - name: install radvd conf 
-   copy: 
+ - name: install radvd conf
+   copy:
      src: radvd.conf
-     dest: /etc/radvd.conf 
+     dest: /etc/radvd.conf
    notify: radvd_service
- 
- - name: generate wide-dhcpv6-client interface defaults
-   template: 
-     src: wide-dhcpv6-client.j2
-     path: /etc/default/wide-dhcpv6-client 
-   notify: wide-dhcpv6-client
 
+ - name: generate wide-dhcpv6-client interface defaults
+   template:
+     src: wide-dhcpv6-client.j2
+     dest: /etc/default/wide-dhcpv6-client
+   notify: wide-dhcpv6-client_service
+
+ - name: generate wide-dhcpv6-client configuration
+   template:
+     src: dhcp6c.conf.j2
+     dest: /etc/wide-dhcpv6/dhcp6c.conf
+   notify: wide-dhcpv6-client_service
 
  - name: ensure radvd comes up at boot
-   service: 
-     name: "{{ item }}" 
-     enabled: true 
+   service:
+     name: "{{ item }}"
+     enabled: true
      state: started
-   with_items: 
+   with_items:
      - wide-dhcpv6-client
      - radvd
