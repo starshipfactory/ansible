@@ -18,9 +18,9 @@ proxy.lab.starship-factory.ch
 infopi.local
 
 [octoprint-pi]
-lerato
-nina
-manfred
+lerato.lab.starship-factory.ch
+nina.lab.starship-factory.ch
+manfred.lab.starship-factory.ch
 
 [gateway]
-100.64.0.1 
+miniataurus.starship-factory.ch
