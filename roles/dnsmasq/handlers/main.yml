@@ -1,0 +1,5 @@
+--- 
+ - name: dnsmasq_reload
+   service: 
+     name: dnsmasq
+     state: restarted
