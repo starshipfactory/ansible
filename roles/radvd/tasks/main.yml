@@ -6,10 +6,26 @@
      - radvd
      - wide-dhcpv6-client
 
- - name: ensure sysctl for radvd is set
+ - name: ensure ipv6 forwarding is enabled for new interfaces
    sysctl:
      name: net.ipv6.conf.default.forwarding
      value: 1
+
+ - name: ensure ipv6 forwarding is enabled for existing interfaces
+   lineinfile:
+     dest: "/etc/sysctl.d/99-ipv6-forwarding.conf"
+     create: yes
+     owner: root
+     group: root
+     mode: 0444
+     line: "net.ipv6.conf.{{item|replace('.','/')}}.forwarding=1"
+   with_items: "{{ ansible_interfaces|reject('equalto', 'lo')|reject('equalto', ansible_default_ipv6.interface)|sort }} "
+   register: sysctl_reload
+
+ - name: reload ipv6 forwarding sysctls
+   command: /sbin/sysctl -w "net.ipv6.conf.{{item|replace('.','/')}}.forwarding=1"
+   with_items: "{{ ansible_interfaces|reject('equalto', 'lo')|reject('equalto', ansible_default_ipv6.interface)|sort }} "
+   when: sysctl_reload.changed
 
  - name: install radvd conf
    copy:
