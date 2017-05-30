@@ -1,4 +1,4 @@
 ---
  - hosts: gateway
    roles:
-     - { role: "info_pi", tags: 'info_pi' }
+     - { role: "radvd", tags: 'radvd' }
