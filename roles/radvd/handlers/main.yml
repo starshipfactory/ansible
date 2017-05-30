@@ -1,0 +1,10 @@
+---
+ - name: radvd_service
+   service:
+     name: radvd 
+     state: restarted
+
+ - name: wide-dhcpv6-client_service
+   service:
+     name: wide-dhcpv6-client 
+     state: restarted
