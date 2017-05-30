@@ -1,4 +1,5 @@
 ---
  - hosts: gateway
    roles:
+     - { role: "dnsmasq", tags: 'dnsmasq' }
      - { role: "radvd", tags: 'radvd' }

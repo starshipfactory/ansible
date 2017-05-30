@@ -1,0 +1,16 @@
+---
+ - name: install dnsmasq 
+   apt: 
+     name: dnsmasq
+
+ - name: install config for dnsmasq
+   copy: 
+     src: starshipfactory.conf
+     dest: /etc/dnsmasq.d/starshipfactory.conf
+   notify: dnsmasq_reload
+
+ - name: ensure dnsmaq is running at bootup
+   service:
+     name: dnsmasq
+     state: started
+     enabled: true
