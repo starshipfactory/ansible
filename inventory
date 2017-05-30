@@ -2,6 +2,17 @@
 gateway
 infopi
 octoprint-pi
+all-only
+
+[all-only]
+admin.lab.starship-factory.ch
+dock.lab.starship-factory.ch
+door.lab.starship-factory.ch
+filer.lab.starship-factory.ch
+froehlich.lab.starship-factory.ch
+minecraft.lab.starship-factory.ch
+monitoring.lab.starship-factory.ch
+proxy.lab.starship-factory.ch
 
 [infopi]
 infopi.local
