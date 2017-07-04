@@ -6,6 +6,8 @@
      - ca-certificates
      - openssl
 
- - name: deploy keys  
-   authorized_key: key={{ item }} user=root 
+ - name: deploy keys
+   authorized_key:
+     key: "{{ item }}"
+     user: root
    with_items: "{{ ssh_keys }}"
