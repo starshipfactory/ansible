@@ -8,7 +8,7 @@ profile default
   script "/etc/wide-dhcpv6/dhcp6c-script";
 };
 
-interface {{ ansible_default_ipv6.interface }} {
+interface ppp0 {
   send ia-pd 0;
   request domain-name-servers;
   request domain-name;
@@ -17,7 +17,7 @@ interface {{ ansible_default_ipv6.interface }} {
 };
 
 id-assoc pd {
-{% for iface in ansible_interfaces|reject("equalto", "lo")|reject("equalto", ansible_default_ipv6.interface)|sort %}
+{% for iface in ansible_interfaces|reject("equalto", "lo")|reject("equalto", "ppp0")|sort %}
   prefix-interface {{ iface }} {
     sla-id {{ loop.index0 }};
     sla-len 4;
