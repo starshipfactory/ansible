@@ -48,6 +48,15 @@
      dest: /etc/wide-dhcpv6/dhcp6c.conf
    notify: wide-dhcpv6-client_service
 
+ - name: copy wide-dhcpv6-client ifupdown script
+   copy:
+     src: dhcp6c-ifupdown
+     dest: /etc/wide-dhcpv6/dhcp6c-ifupdown
+     owner: root
+     group: root
+     mode: 0555
+   notify: wide-dhcpv6-client_service
+
  - name: ensure radvd comes up at boot
    service:
      name: "{{ item }}"
