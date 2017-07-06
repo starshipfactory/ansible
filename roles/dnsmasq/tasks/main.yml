@@ -4,8 +4,8 @@
      name: dnsmasq
 
  - name: install config for dnsmasq
-   copy: 
-     src: starshipfactory.conf
+   template: 
+     src: starshipfactory.conf.j2
      dest: /etc/dnsmasq.d/starshipfactory.conf
    notify: dnsmasq_reload
 
