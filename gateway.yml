@@ -1,5 +1,8 @@
 ---
  - hosts: gateway
    roles:
+     - { role: "gw_iface", tags: 'gw_iface' }
      - { role: "dnsmasq", tags: 'dnsmasq' }
      - { role: "radvd", tags: 'radvd' }
+     - { role: "pppd", tags: 'pppd' }
+     - { role: "gw_iptables", tags: 'gw_iptables' }

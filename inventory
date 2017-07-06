@@ -25,4 +25,4 @@ nina.lab.starship-factory.ch
 manfred.lab.starship-factory.ch
 
 [gateway]
-miniataurus.starship-factory.ch
+miniataurus.lab.starship-factory.ch ansible_host=100.64.0.1
