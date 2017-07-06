@@ -1,0 +1,17 @@
+--- 
+ - name: install iptables
+   apt: 
+     name: "{{ item }}"
+   with_items: 
+   - iptables
+   - iptables-persistent
+
+ - name: install rules file
+   copy:
+     src: rules.v4
+     dest: /etc/iptables/rules.v4 
+   register: iptables
+ 
+ - name: reload rules upon change
+   shell: iptables-restore < /etc/iptables/rules.v4
+   when: iptables.changed
