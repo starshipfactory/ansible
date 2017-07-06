@@ -1,0 +1,4 @@
+allow-hotplug {{ item.name }} 
+iface {{ item.name }} inet static
+	address {{ item.ip }} 
+        netmask {{ item.netmask }}

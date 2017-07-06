@@ -1,0 +1,13 @@
+--- 
+ - name: install generic template for interfaces global config
+   copy: 
+     src: interfaces
+     dest: /etc/network/interfaces
+
+ - name: interface config
+   template: 
+     src: iface.j2
+     dest: /etc/network/interfaces.d/{{ item.name }}
+   with_items: "{{gw_iface.iface }}"
+  
+ 
