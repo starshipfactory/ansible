@@ -1,0 +1,21 @@
+---
+ - name: install prometheus-node-exporter
+   apt:
+     name: prometheus-node-exporter
+     state: latest
+   when: ansible_pkg_mgr == 'apt'
+   notify: prometheus-node-exporter_reload
+
+ - name: install prometheus-node-exporter
+   yum:
+     name: prometheus-node-exporter
+     state: latest
+   when: ansible_pkg_mgr == 'yum'
+   notify: prometheus-node-exporter_reload
+
+ - name: install prometheus-node-exporter
+   dnf:
+     name: prometheus-node-exporter
+     state: latest
+   when: ansible_pkg_mgr == 'dnf'
+   notify: prometheus-node-exporter_reload
