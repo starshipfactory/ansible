@@ -1,0 +1,47 @@
+--- 
+ - name: install required software for pppd 
+   apt: 
+     name: "{{ item }}"
+   with_items: 
+   - ifplugd
+   - ppp 
+   - pppoe
+   - pppoeconf
+
+ - name: configure ifplugd
+   template:
+     src: ifplugd.j2
+     dest: /etc/default/ifplugd
+
+ - name: configure ipv6defaultroute
+   copy:
+     src: "{{ item }}"
+     dest: "/etc/ppp/ip-up.d/{{ item }}" 
+     mode: 0755
+   with_items: 
+   - ipv6defaultroute
+   - ipv4forward
+
+ - name: configure chap-secrets
+   template:
+     src: chap-secrets.j2
+     dest: /etc/ppp/chap-secrets
+     mode: 0600
+     owner: root
+     group: root 
+
+ - name: configure pppd provider file
+   template: 
+     src: dsl-provider.j2
+     dest: /etc/ppp/peers/dsl-provider
+     owner: root
+     group: dip
+     mode: 0640
+
+ - name: configure pppd interfaces file
+   template: 
+     src: interfaces.ppp.j2
+     dest: /etc/network/interfaces.d/ppp0
+     owner: root
+     group: root 
+     mode: 0644

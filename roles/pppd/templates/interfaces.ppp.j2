@@ -1,0 +1,10 @@
+allow-hotplug {{ pppd.pppoeiface }}
+iface {{ pppd.pppoeiface }} inet manual
+ pre-up /bin/ip link set {{ pppd.pppoeiface }} up
+ up ifup ppp0=dsl
+ down ifdown ppp0=dsl
+ post-down /bin/ip link set {{ pppd.pppoeiface }} down
+
+# The following is used internally only
+iface dsl inet ppp
+ provider dsl-provider
