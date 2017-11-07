@@ -1,10 +1,13 @@
 Ansible Scripts for Infrastructure at SF
 ========================================
  
-This ansible repo currenlty defines the installation of the various raspberryPis around the starship factory. They include the info screen and the octoprint raspberries.
+This ansible repo currently defines the installation of the various machines in the starship factory. 
 
 Usage:
 ------
+Decrypt the ansible variable file with ansible-vault:
+ ansible-vault
+
 To deploy everywhere and everything: 
  ansible-playbook -i inventory site.yml -u root
 
