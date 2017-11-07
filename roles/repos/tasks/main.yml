@@ -1,0 +1,92 @@
+---
+# Repositories
+  ## Purge
+  - name: stat file
+    stat: 
+      path: /etc/ansible/facts.d/sources_cleaned.fact.foo
+    register: sources_cleaned
+
+
+  - block:
+     - name: Remove source files for apt and apt.conf 
+       file: 
+         path: "{{ item }}" 
+         state: absent
+       with_items:
+         - /etc/apt/sources.list
+         - /etc/apt/apt.conf
+
+
+     - name: Remove source files for apt and apt.conf 
+       file: 
+         path: "{{ item }}" 
+         state: absent
+       with_items:
+         - /etc/apt/sources.list.d/ 
+
+     - name: Recreate Sources list dir
+       file: 
+         path: /etc/apt/sources.list.d/ 
+         state: directory
+
+     - name: Create ansible facts dir
+       file: 
+         path: /etc/ansible/facts.d 
+         state: directory
+
+     - name: set fact that sources has been cleaned
+       copy: 
+         src: sources_cleaned.fact 
+         dest: /etc/ansible/facts.d/sources_cleaned.fact 
+         mode: 755
+    when: sources_cleaned.stat.exists == false  
+
+  - debug: 
+      var: stableversion
+
+
+  ### Old-Stable Repo
+  - block:
+    - name: oldstable repositories
+      apt_repository: 
+        repo: "deb {{ repo_url }} {{ item }} main contrib non-free"  
+        state: absent 
+        update_cache: no
+      with_items: "{{ oldstabledistros }}" 
+      register: repos
+
+    - name: oldstable repositories src 
+      apt_repository: 
+        repo: "deb-src {{ repo_url }} {{ item }} main contrib non-free"  
+        state: absent 
+        update_cache: no
+      with_items: "{{ oldstabledistros }}" 
+      register: repos
+
+    when: 
+      - ansible_distribution == "Debian" 
+
+  ### Stable Repo
+  - block:
+    - name: stable repositories
+      apt_repository: 
+        repo: "deb {{ repo_url }} {{ item }} main contrib non-free"  
+        state: present 
+        update_cache: no
+      with_items: "{{ stabledistros }}"
+      register: repos
+
+    - name: stable repositories src 
+      apt_repository: 
+        repo: "deb-src {{ repo_url }} {{ item }} main contrib non-free"  
+        state: present 
+        update_cache: no
+      with_items: "{{ stabledistros }}" 
+      register: repos
+
+    when: 
+      - ansible_distribution == "Debian" 
+
+  - name: Update Repository
+    apt: 
+      update_cache: yes
