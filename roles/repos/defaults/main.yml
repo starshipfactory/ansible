@@ -1,0 +1,17 @@
+---
+stabledistros:
+  - stretch-backports
+  - stretch-updates
+  - stretch 
+
+stableversion: 9
+
+
+oldstabledistros:
+  - jessie
+  - jessie-updates  
+  - 'jessie/updates'  
+  - jessie/updates'  
+  - jessie-backports 
+
+oldstableversion: 8
