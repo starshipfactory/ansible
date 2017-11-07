@@ -1,0 +1,11 @@
+--- 
+ - name: install ntp.conf
+   template: 
+     src: ntp.conf.j2
+     dest: /etc/ntp.conf
+   notify: "ntp restart"
+
+ - name: enable ntp at boot
+   service:
+     name: ntp
+     enabled: true

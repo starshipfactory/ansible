@@ -1,0 +1,5 @@
+---
+ - name: install ntp packages
+   apt: 
+     name: "{{ item }}"
+   with_items: "{{ ntp_packages }}" 

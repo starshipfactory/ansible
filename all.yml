@@ -2,6 +2,7 @@
 - hosts: all
   roles:
     - { role: "timezone", tags: 'timezone' }
+    - { role: "ntp", tags: 'ntp' }
     - { role: "ssh_key", tags: 'ssh_key' }
     - { role: "unattended_upgrades", tags: 'unattended_upgrades' }
     - { role: "node_monitoring", tags: 'node_monitoring' }

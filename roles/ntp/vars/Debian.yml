@@ -1,0 +1,3 @@
+ntp_packages: 
+  - ntp
+  - ntpdate  
