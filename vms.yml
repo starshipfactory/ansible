@@ -1,0 +1,4 @@
+---
+- hosts: vms
+  roles:
+    - { role: "repos", tags: 'repos' }
