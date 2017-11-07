@@ -1,6 +1,7 @@
 ---
 # file: site.yml
 - include: all.yml
+- include: vms.yml
 - include: gateway.yml
 - include: infopi.yml
 - include: octoprint-pi.yml
