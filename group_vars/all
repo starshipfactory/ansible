@@ -19,3 +19,6 @@ ipv4_whitelist:
 
 ipv6_whitelist:
  - 2a02:200:2e00:5480::/60
+
+# Repo URL
+repo_url: http://proxy.lab.starship-factory.ch/debian/
