@@ -1,17 +1,19 @@
-[all:children]
-gateway
-infopi
-octoprint-pi
-all-only
-
-[all-only]
+[vms]
+proxy.lab.starship-factory.ch
 admin.lab.starship-factory.ch
 dock.lab.starship-factory.ch
-door.lab.starship-factory.ch
 filer.lab.starship-factory.ch
 froehlich.lab.starship-factory.ch
 minecraft.lab.starship-factory.ch
 monitoring.lab.starship-factory.ch
+
+[pis:children]
+infopi
+doorpi
+octoprint-pi
+
+[doorpi]
+door.lab.starship-factory.ch
 
 [infopi]
 infopi.local
