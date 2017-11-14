@@ -1,0 +1,135 @@
+---
+  # Update bashrc
+  - name: Copy bashrc for root and skel
+    copy: 
+     src: bashrc 
+     dest: "{{ item }}"
+    with_items: 
+      - /root/.bashrc
+      - /etc/skel/.bashrc
+
+### Sanity Checks
+  - name: run dpkg --configure -a
+    shell: PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin dpkg --configure -a
+    ignore_errors: True
+
+  - name: Ensure latest packages for packet managment
+    apt: 
+      pkg: "{{ item }}" 
+      state: latest
+      force: yes
+    with_items:
+    - debian-keyring 
+    - aptitude
+    - apt
+    - dpkg
+
+  - name: Base Packages
+    apt: 
+      pkg: "{{ item }}" 
+    with_items:
+    - sshguard
+    - apt-transport-https
+    - aptitude
+    - python-setuptools
+    - dstat
+    - sudo
+    - cron-apt
+    - git
+    - zip
+    - less
+    - vim
+    - vim-addon-manager
+    - sshfs
+    - mc
+    - tcpdump
+    - ngrep
+    - netcat
+    - iptraf
+    - nmon
+    - tshark
+    - mtr-tiny
+    - dnsutils
+    - mdns-scan
+    - w3m
+    - lynx
+    - apt-file
+    - sudo
+    - tree
+    - cifs-utils
+    - ccze
+    - subnetcalc
+    - tshark
+    - lldpd
+    - socat
+    - anacron
+    - lsof
+    - cruft
+    - sysstat
+    - tmux
+
+  - name: Default Packages from Backports 
+    apt: 
+      pkg: "{{ item }}"
+      default_release: "{{ ansible_distribution_release }}-backports"
+    with_items: 
+    - mosh 
+    when: ansible_distribution_major_version == 8
+
+  - name: Base Packages Wheezy
+    apt: pkg={{ item }}
+    with_items:
+    - zlib-bin
+    - ldap-utils
+    when: ansible_distribution == "Debian" and ansible_distribution_major_version == "wheezy"
+
+  - name: Copy Vimrc
+    copy: 
+      src: vimrc 
+      dest: /etc/vim/vimrc
+
+  - name: Change default editor to vim
+    alternatives: 
+      name: editor 
+      path: /usr/bin/vim.basic
+
+  - name: Remove Packages no longer needed
+    apt: 
+      pkg: "{{ item }}" 
+      purge: yes 
+      state: absent
+    with_items:
+    - icedtea-6-plugin
+    - icedtea6-plugin
+    - fail2ban
+    - virtualbox
+    - puppet
+    - ansible
+
+  - name: Dist-upgrade
+    apt: 
+      upgrade: safe
+    when: ansible_distribution == "Debian" and ansible_distribution_major_version >= "8"
+
+  - name: Dist-upgrade
+    apt: 
+      upgrade: dist
+    when: ansible_distribution == "Debian" and ansible_distribution_release == "wheezy"
+
+  - name: install default locale 
+    copy: 
+     src: locale 
+     dest: /etc/default/locale
+
+  - name: Install recent kernel image
+    apt: 
+      pkg: linux-image-amd64 
+      default_release: "{{ ansible_distribution_release }}-backports" 
+      state: latest
+    when: ansible_distribution == "Debian" and ansible_distribution_major_version == "8"
+
+  - name: replace sudoers resolution in nsswitch.conf
+    replace: 
+      regexp: '^sudoers:.+files sss$'      
+      replace: 'sudoers: files'      
+      path: /etc/nsswitch.conf

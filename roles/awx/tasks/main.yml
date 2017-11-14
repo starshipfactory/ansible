@@ -1,0 +1,7 @@
+---
+ - name: prerequistes for awx
+   apt:
+     name: "{{ item }}"
+   with_items:
+   - git
+   - make
