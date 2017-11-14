@@ -1,6 +1,7 @@
 ---
 - hosts: all
   roles:
+    - { role: "base", tags: 'base' }
     - { role: "timezone", tags: 'timezone' }
     - { role: "ntp", tags: 'ntp' }
     - { role: "ssh_key", tags: 'ssh_key' }
