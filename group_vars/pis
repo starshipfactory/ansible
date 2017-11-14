@@ -1,2 +1,12 @@
-# Repo URL
+# Repos 
 repo_url: http://proxy.lab.starship-factory.ch/raspbian/
+
+stabledistros:
+  - stretch 
+
+stableversion: 9
+
+oldstabledistros:
+  - jessie
+
+oldstableversion: 8
